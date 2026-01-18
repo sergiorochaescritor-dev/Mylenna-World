@@ -3,191 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <title>Mundo da Mylenna</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
+*{margin:0;padding:0;box-sizing:border-box}
+body{
   font-family: 'Arial', sans-serif;
-  background: #fff;
-  color: #222;
-  overflow-x: hidden;
+  color:#fff;
+  overflow-x:hidden;
 }
 
-/* ===== ABERTURA ===== */
-.hero {
-  height: 100vh;
-  background: linear-gradient(135deg, #f6c1e1, #d7b5f8, #fbe7f3);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+/* FUNDO COLORIDO ANIMADO */
+.bg{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ff5fd2,#7b2cff,#00f2ff,#ffb347);
+  background-size:500% 500%;
+  animation:bgMove 12s infinite alternate;
+  z-index:-2;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border: 4px solid #000;
-  border-radius: 50%;
-  opacity: 0.1;
-  animation: spin 20s linear infinite;
+/* CORAÇÕES FLUTUANTES */
+.heart{
+  position:absolute;
+  color:#fff;
+  opacity:.2;
+  animation:float 25s linear infinite;
+}
+.heart:nth-child(1){left:10%;font-size:30px}
+.heart:nth-child(2){left:45%;font-size:50px;animation-delay:6s}
+.heart:nth-child(3){left:80%;font-size:40px;animation-delay:12s}
+
+/* MENU */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
+  z-index:10;
+}
+nav a{
+  margin-right:15px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  text-shadow:0 0 8px rgba(255,255,255,.6);
+}
+.menu-dot{
+  font-size:26px;
+  cursor:pointer;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  animation: fadeDown 2s ease;
+/* TELA INICIAL */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
-.star {
-  width: 50px;
-  height: 50px;
-  border: 3px solid #000;
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
+/* LOGO CORAÇÃO */
+.logo{
+  width:90px;
+  height:90px;
+  background:#ff3f8e;
+  position:relative;
+  transform:rotate(-45deg);
+  animation:fadeIn 2s ease forwards, pulse 2s infinite;
+}
+.logo::before,
+.logo::after{
+  content:"";
+  width:90px;
+  height:90px;
+  background:#ff3f8e;
+  border-radius:50%;
+  position:absolute;
+}
+.logo::before{
+  top:-45px;
+  left:0;
+}
+.logo::after{
+  left:45px;
+  top:0;
 }
 
-.logo h1 {
-  font-size: 2.8rem;
-  letter-spacing: 2px;
+.hero h1{
+  margin-top:25px;
+  font-size:3.2rem;
+  animation:textUp 2s ease forwards;
+  text-shadow:0 0 12px rgba(255,255,255,.7);
+}
+.hero p{
+  margin-top:10px;
+  font-size:1.3rem;
+  opacity:.95;
 }
 
-.hero p {
-  font-size: 1.3rem;
-  margin-top: 10px;
-  animation: floatText 3s ease-in-out infinite;
+/* SEÇÕES */
+section{
+  padding:90px 20px;
+  max-width:900px;
+  margin:auto;
+}
+.card{
+  background:rgba(255,255,255,.15);
+  border-radius:25px;
+  padding:35px;
+  margin-bottom:40px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 25px rgba(255,255,255,.2);
 }
 
-/* ===== MENU ===== */
-nav {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
+/* CHAT VISUAL */
+.chat{
+  background:linear-gradient(135deg,#ff5fd2,#7b2cff);
+  border-radius:20px;
+  padding:20px;
+}
+.msg{
+  background:#fff;
+  color:#000;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  width:70%;
+}
+.input{
+  margin-top:10px;
+  padding:12px;
+  border-radius:12px;
+  background:#fff;
+  color:#888;
 }
 
-nav a {
-  text-decoration: none;
-  margin-left: 15px;
-  font-weight: bold;
-  color: #000;
+/* ANIMAÇÕES */
+@keyframes bgMove{
+  0%{background-position:0%}
+  100%{background-position:100%}
 }
-
-/* ===== SEÇÕES ===== */
-section {
-  padding: 70px 20px;
-  text-align: center;
+@keyframes float{
+  from{top:110%}
+  to{top:-10%}
 }
-
-.card {
-  max-width: 850px;
-  margin: auto;
-  background: #fff;
-  border-radius: 25px;
-  padding: 40px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  margin-bottom: 50px;
-  animation: fadeUp 1.5s ease;
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.4)}
+  to{opacity:1;transform:scale(1)}
 }
-
-.card h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+@keyframes textUp{
+  from{opacity:0;transform:translateY(50px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
-.card p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* ===== RODAPÉ ===== */
-footer {
-  background: #f6c1e1;
-  padding: 25px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-/* ===== ANIMAÇÕES ===== */
-@keyframes spin {
-  from {transform: rotate(0deg);}
-  to {transform: rotate(360deg);}
-}
-
-@keyframes fadeDown {
-  from {opacity: 0; transform: translateY(-30px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-@keyframes fadeUp {
-  from {opacity: 0; transform: translateY(40px);}
-  to {opacity: 1; transform: translate
-      translateY(0);}
-}
-
-@keyframes floatText {
-  0% {transform: translateY(0);}
-  50% {transform: translateY(-8px);}
-  100% {transform: translateY(0);}
+@keyframes pulse{
+  0%,100%{transform:rotate(-45deg) scale(1)}
+  50%{transform:rotate(-45deg) scale(1.1)}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <a href="#sobre">sobre</a>
-  <a href="#conteudo">conteúdo</a>
-  <a href="#redes">redes</a>
-</nav>
+<div class="bg"></div>
+<div class="heart">♥</div>
+<div class="heart">♥</div>
+<div class="heart">♥</div>
 
-<div class="hero">
-  <div class="logo">
-    <div class="star"></div>
-    <h1>MYLENNA</h1>
-  </div>
-  <p>bem-vindo(a) ao mundo da mylenna</p>
+<header>
+  <nav>
+    <a href="#home">home</a>
+    <a href="#sobre">sobre</a>
+    <a href="#redes">redes</a>
+    <a href="#chat">chat</a>
+  </nav>
+  <div class="menu-dot">⋮</div>
+</header>
+
+<div class="hero" id="home">
+  <div class="logo"></div>
+  <h1>MYLENNA</h1>
+  <p>bem-vindo(a) ao mundo colorido da mylenna 💖</p>
 </div>
 
 <section id="sobre">
   <div class="card">
     <h2>quem é mylenna?</h2>
     <p>
-      mylenna oliveira é uma criadora de conteúdo digital brasileira.
-      conhecida por sua presença nas redes sociais, ela compartilha vídeos,
-      colaborações e conteúdos criativos que conquistam cada vez mais pessoas.
-    </p>
-  </div>
-</section>
-
-<section id="conteudo">
-  <div class="card">
-    <h2>conteúdos e colaborações</h2>
-    <p>
-      mylenna produz conteúdos de dança e vídeos criativos,
-      realizando colaborações especiais com sua amiga nevelly.
-      juntas, elas criam vídeos cheios de estilo, expressão e autenticidade.
+      Mylenna Oliveira é criadora de conteúdo digital,
+      conhecida por sua criatividade, carisma e estilo único.
     </p>
   </div>
 </section>
@@ -195,16 +202,19 @@ footer {
 <section id="redes">
   <div class="card">
     <h2>redes sociais</h2>
-    <p>
-      instagram oficial:<br>
-      <strong>@mylennaoficiall</strong>
-    </p>
+    <p>Instagram: <strong>@mylennaoficiall</strong></p>
   </div>
 </section>
 
-<footer>
-  site desenvolvido com carinho ✦ mundo da mylenna
-</footer>
+<section id="chat">
+  <div class="card">
+    <h2>chat</h2>
+    <div class="chat">
+      <div class="msg">oiii 💕 seja bem-vindo(a)</div>
+      <div class="input">digite sua mensagem…</div>
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
